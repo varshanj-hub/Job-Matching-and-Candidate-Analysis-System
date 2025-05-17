@@ -1,0 +1,17 @@
+openai-whisper
+langchain-groq
+langchain-community
+moviepy
+ffmpeg
+langchain-huggingface
+python-dotenv
+ipykernel
+chromadb
+streamlit
+pypdf
+pdfplumber
+PyPDF2
+python-docx
+google-generativeai
+langchain
+langchain-google
