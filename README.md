@@ -1,208 +1,101 @@
-# Job-Matching-and-Candidate-Analysis-System
-
-Overview
-
-The Job Matching and Candidate Analysis System is an AI-powered tool to streamline recruitment. It automates resume-job matching and video interview analysis using Python, Streamlit, and NLP tools. Ideal for HR professionals, it helps make data-driven hiring decisions efficiently.
-
-Features
-
-
-
-
-
-Job Matching:
-
-
-
-
-
-Extracts skills, qualifications, and experience from job descriptions and resumes.
-
-
-
-Supports PDF, DOCX, TXT, JSON formats.
-
-
-
-Calculates match scores using TF-IDF and cosine similarity.
-
-
-
-Interview Analysis:
-
-
-
-
-
-Transcribes video interviews with OpenAI Whisper.
-
-
-
-Analyzes communication, listening, and engagement using HuggingFace embeddings and ChatGroq.
-
-
-
-Supports MP4, MOV, AVI, MPEG4 formats.
-
-
-
-User Interface:
-
-
-
-
-
-Streamlit-based web app for easy file uploads and result visualization.
-
-Screenshots
-
-Job Matching System
-
-
-
-
-Upload job descriptions and a resume for matching.
-
-Interview Analysis App
-
-
-
-
-Upload a video to analyze interview performance.
-
-Requirements
-
-
-
-
-
-Python 3.8+
-
-
-
-Dependencies (see requirements.txt):
-
-
-
-
-
-openai-whisper
-
-
-
-langchain-groq
-
-
-
-langchain-huggingface
-
-
-
-langchain-community
-
-
-
-moviepy
-
-
-
-ffmpeg
-
-
-
-chromadb
-
-
-
-streamlit
-
-
-
-pdfplumber
-
-
-
-python-docx
-
-
-
-scikit-learn
-
-Installation
-
-
-
-
-
-Clone the Repository:
-
-git clone https://github.com/your-username/job-matching-candidate-analysis.git
-cd job-matching-candidate-analysis
-
-
-
-Install Dependencies:
-
-pip install -r requirements.txt
-
-
-
-Set Up Environment Variables:
-
-
-
-
-
-Create a .env file in the project root.
-
-
-
-Add your ChatGroq API key:
-
-GROQ_API_KEY=your-api-key-here
-
-Usage
-
-Job Matching System
-
-
-
-
-
-Run the app:
-
+# Job Matching and Candidate Analysis System
+
+This project comprises two main components: a **Job Matching System** that intelligently matches resumes with job descriptions, and a **Candidate Analysis System** that provides an in-depth analysis of candidate interviews using video processing and AI.
+
+## Features
+
+* **Job Matching System**:
+    * Extracts text from various document formats (PDF, DOCX, TXT, JSON) for job descriptions and resumes.
+    * Utilizes an LLM (Language Model) to extract key requirements from job descriptions and relevant information from resumes (skills, experience, education, etc.).
+    * Calculates similarity scores between job requirements and resume data to quantify the match.
+    * Provides analytics on skill and overall match percentages with justifications.
+* **Candidate Analysis System**:
+    * Processes uploaded video interview files to extract audio.
+    * Transcribes audio into text using the Whisper model.
+    * Analyzes the transcribed interview text using an LLM to assess:
+        * Communication Style
+        * Active Listening
+        * Engagement with the Interviewer
+    * Generates a contextual summary of the candidate's performance.
+
+## Technologies Used
+
+* **Python**
+* **Streamlit**: For creating interactive web applications. 
+* **LangChain**: For building applications with large language models. 
+* **HuggingFace Embeddings**: For creating text embeddings. 
+* **ChromaDB**: For vector storage. 
+* **Groq**: For fast inference with language models (ChatGroq). 
+* **Whisper**: For audio transcription. 
+* **MoviePy**: For video processing and audio extraction. 
+* **pdfplumber, python-docx**: For document text extraction.
+* **scikit-learn**: For TF-IDF vectorization and cosine similarity calculations.
+* **python-dotenv**: For managing environment variables. 
+
+## Setup and Installation
+
+1.  **Clone the repository**:
+
+    ```bash
+    git clone <your-repository-url>
+    cd <your-repository-name>
+    ```
+
+2.  **Create a virtual environment** (recommended):
+
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+    ```
+
+3.  **Install dependencies**:
+
+    ```bash
+    pip install -r req.txt
+    ```
+
+4.  **Set up API Keys**:
+    Create a `.env` file in the root directory of your project and add your Groq API key:
+
+    ```
+    GROQ_API_KEY='YOUR_GROQ_API_KEY'
+    ```
+    **Note**: You need to modify `interview.py` and `job.py` to correctly load the API key from the environment variable.
+
+    * **For `interview.py`:**
+        Replace `api_key='YOUR_API_KEY'` with `api_key=os.getenv('GROQ_API_KEY')`. 
+        The line should look like this:
+        ```python
+        chat = ChatGroq(temperature=0, api_key=os.getenv('GROQ_API_KEY'), model="mistral-saba-24b")
+        ```
+    * **For `job.py`:**
+        Replace `api_key='YOUR_API_KEY'` with `api_key=os.getenv('GROQ_API_KEY')`.
+        The line should look like this:
+        ```python
+        llm = ChatGroq(temperature=0, api_key=os.getenv('GROQ_API_KEY'), model="mistral-saba-24b")
+        ```
+
+5.  **Install FFmpeg**:
+    MoviePy requires FFmpeg. You can download it from the [FFmpeg website](https://ffmpeg.org/download.html) and add it to your system's PATH, or install it via a package manager:
+
+    * **On Ubuntu/Debian**:
+        ```bash
+        sudo apt update && sudo apt install ffmpeg
+        ```
+    * **On macOS (using Homebrew)**:
+        ```bash
+        brew install ffmpeg
+        ```
+    * **On Windows**:
+        Download the zip file from the FFmpeg website, extract it, and add the `bin` directory to your system's PATH environment variable.
+
+## How to Run
+
+This project consists of two separate Streamlit applications.
+
+### Running the Job Matching System
+
+To run the job matching system, navigate to the project's root directory and execute:
+
+```bash
 streamlit run job.py
-
-
-
-Open http://localhost:8501 in your browser.
-
-
-
-Upload job descriptions (PDF, DOCX, TXT, JSON) and a resume (PDF, DOCX).
-
-
-
-Click "Process" to view match results.
-
-Interview Analysis App
-
-
-
-
-
-Run the app:
-
-streamlit run interview.py
-
-
-
-Open http://localhost:8501 in your browser.
-
-
-
-Upload a video (MP4, MOV, AVI, MPEG4).
-
-
-
-View the interview analysis.
