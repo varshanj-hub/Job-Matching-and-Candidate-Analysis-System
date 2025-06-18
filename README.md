@@ -37,8 +37,8 @@ This project comprises two main components: a **Job Matching System** that intel
 1.  **Clone the repository**:
 
     ```bash
-    git clone <your-repository-url>
-    cd <your-repository-name>
+    git clone <https://github.com/varshanj-hub/Job-Matching-and-Candidate-Analysis-System>
+    cd <Job-Matching-and-Candidate-Analysis-System>
     ```
 
 2.  **Create a virtual environment** (recommended):
